@@ -2,7 +2,6 @@ package filcns
 
 import (
 	"context"
-	"fmt"
 	"runtime"
 	"time"
 
@@ -1454,6 +1453,9 @@ func UpgradeActorsCode(ctx context.Context, sm *stmgr.StateManager, newActorsMan
 	}
 
 	actorsIn, err := states8.LoadTree(adtStore, stateRoot.Actors)
+	if err != nil {
+		return cid.Undef, xerrors.Errorf("failed to load state tree: %w", err)
+	}
 	systemActor, ok, err := actorsIn.GetActor(system.Address)
 	if !ok {
 		return cid.Undef, xerrors.Errorf("failed to get system actor: %w", err)
@@ -1502,7 +1504,7 @@ func UpgradeActorsCode(ctx context.Context, sm *stmgr.StateManager, newActorsMan
 	}
 
 	if len(migrations) != 11 {
-		panic(fmt.Sprintf("incomplete migration specification with %d code CIDs", len(migrations)))
+		return cid.Undef, xerrors.Errorf("incomplete manifest with %d code CIDs", len(migrations))
 	}
 	startTime := time.Now()
 
@@ -1523,7 +1525,7 @@ func UpgradeActorsCode(ctx context.Context, sm *stmgr.StateManager, newActorsMan
 			newSystemState := system8.State{BuiltinActors: newManifest.Data}
 			systemStateHead, err := store.Put(ctx, &newSystemState)
 			if err != nil {
-				return xerrors.Errorf("could not get system actor state head: %w", err)
+				return xerrors.Errorf("could not set system actor state head: %w", err)
 			}
 			newActor = states8.Actor{
 				Code:       newCid,
