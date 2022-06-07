@@ -6,19 +6,7 @@ import (
 	"runtime"
 	"time"
 
-	system8 "github.com/filecoin-project/go-state-types/builtin/v8/system"
-
-	"github.com/filecoin-project/go-state-types/manifest"
-
-	"github.com/filecoin-project/lotus/chain/actors/builtin/system"
-
-	"github.com/filecoin-project/specs-actors/v8/actors/migration/nv16"
-
 	"github.com/docker/go-units"
-
-	"github.com/filecoin-project/specs-actors/v6/actors/migration/nv14"
-	"github.com/filecoin-project/specs-actors/v7/actors/migration/nv15"
-
 	"github.com/ipfs/go-cid"
 	cbor "github.com/ipfs/go-ipld-cbor"
 	"golang.org/x/xerrors"
@@ -26,9 +14,11 @@ import (
 	"github.com/filecoin-project/go-address"
 	"github.com/filecoin-project/go-state-types/abi"
 	"github.com/filecoin-project/go-state-types/big"
+	"github.com/filecoin-project/go-state-types/manifest"
 	"github.com/filecoin-project/go-state-types/network"
 	"github.com/filecoin-project/go-state-types/rt"
 
+	system8 "github.com/filecoin-project/go-state-types/builtin/v8/system"
 	builtin0 "github.com/filecoin-project/specs-actors/actors/builtin"
 	miner0 "github.com/filecoin-project/specs-actors/actors/builtin/miner"
 	multisig0 "github.com/filecoin-project/specs-actors/actors/builtin/multisig"
@@ -40,7 +30,10 @@ import (
 	"github.com/filecoin-project/specs-actors/v3/actors/migration/nv10"
 	"github.com/filecoin-project/specs-actors/v4/actors/migration/nv12"
 	"github.com/filecoin-project/specs-actors/v5/actors/migration/nv13"
+	"github.com/filecoin-project/specs-actors/v6/actors/migration/nv14"
+	"github.com/filecoin-project/specs-actors/v7/actors/migration/nv15"
 	manifest8 "github.com/filecoin-project/specs-actors/v8/actors/builtin/manifest"
+	"github.com/filecoin-project/specs-actors/v8/actors/migration/nv16"
 	states8 "github.com/filecoin-project/specs-actors/v8/actors/states"
 	adt8 "github.com/filecoin-project/specs-actors/v8/actors/util/adt"
 
@@ -49,6 +42,7 @@ import (
 	"github.com/filecoin-project/lotus/chain/actors"
 	"github.com/filecoin-project/lotus/chain/actors/builtin"
 	"github.com/filecoin-project/lotus/chain/actors/builtin/multisig"
+	"github.com/filecoin-project/lotus/chain/actors/builtin/system"
 	"github.com/filecoin-project/lotus/chain/state"
 	"github.com/filecoin-project/lotus/chain/stmgr"
 	"github.com/filecoin-project/lotus/chain/store"
